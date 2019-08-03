@@ -2,12 +2,18 @@ package service.identity;
 
 import domain.identity.Identity;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class IdentityService implements IdentityServiceInt {
+
     private static IdentityService ident=null;
 
     private IdentityService() {
+
     }
 
     public IdentityService getIdent(){
@@ -17,6 +23,7 @@ public class IdentityService implements IdentityServiceInt {
     }
     @Override
     public Identity create(Identity identity) {
+
         return null;
     }
 
