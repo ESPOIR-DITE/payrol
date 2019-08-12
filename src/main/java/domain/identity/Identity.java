@@ -1,6 +1,7 @@
 package domain.identity;
 
 public class Identity {
+
     private int identityId;
     private String indentityTpe;
     private String identityValeu;

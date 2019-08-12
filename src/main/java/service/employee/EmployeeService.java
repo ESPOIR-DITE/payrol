@@ -10,12 +10,11 @@ public class EmployeeService implements EmployeeRepInt {
 
     private EmployeeService() {
     }
-    public EmployeeService getEmployeeServic(){
+    public static EmployeeService getEmployeeServic(){
         if(employee==null){
             employee=new EmployeeService();
         }return employee;
     }
-
     @Override
     public Employee create(Employee employee) {
         return null;

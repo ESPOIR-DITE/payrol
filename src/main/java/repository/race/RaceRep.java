@@ -1,101 +1,110 @@
-package repository.Contact;
+package repository.race;
 
-import domain.contact.Contact;
-import factory.domain.AddressFactory;
-import factory.domain.ContactFactory;
+import domain.demography.Gender;
+import domain.demography.Race;
+import factory.domain.GenderFactory;
+import factory.domain.RaceFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-public class ContactRep implements ContacRepInt {
+public class RaceRep implements RaceInt {
     private String url="jdbc:mysql://localhost:3306/employee_payroll?autoReconnect=true&useSSL=false";
     private String user="root";
     private String password="";
     private Connection conne;
+    private static RaceRep rp=null;
 
-    private static ContactRep contactRep=null;
-
-    private ContactRep() {
+    private RaceRep() {
         try {
             this.conne = DriverManager.getConnection(url,user,password);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
-    public static ContactRep getContactRep() {
-        if(contactRep==null){
-            contactRep=new ContactRep();
-        }
-        return contactRep;
+    public static RaceRep getRaceRep(){
+        if(rp==null){
+            rp=new RaceRep();
+        }return rp;
     }
 
-    @Override
-    public Contact create(Contact contact) {
-        int codeInt=getHighId();
+    public void createTable(String tableName){
         try {
-            String sql="INSERT INTO CONTRACT (ID,CELLPHONE,HOMENUMBER,EMAIL  ) VALUES ("+codeInt+",'"+contact.getCellPhne()+"','"+contact.getHomePhone()+"','"+contact.getEmail()+"');";
+            String sql="CREATE TABLE "+tableName+" (ID integer(6) ,DESRITION VARCHAR (20) ) ;";
             PreparedStatement statement=conne.prepareStatement(sql);
             statement.executeUpdate();
-        } catch (SQLException e) {
+        } catch (
+                SQLException e) {
+            e.printStackTrace();
+        }
+    }
+    @Override
+    public Race create(Race race) {
+        int codeInt=getHighId();
+        try {
+            String sql="INSERT INTO RACE (ID,DESRITION  ) VALUES ("+codeInt+",'"+race.getDescriptio()+"');";
+            PreparedStatement statement=conne.prepareStatement(sql);
+            statement.executeUpdate();
+        } catch (
+                SQLException e) {
             e.printStackTrace();
         }
         return read(""+codeInt);
     }
 
     @Override
-    public Contact read(String id) {
-        Contact contact=null;
+    public Race read(String id) {
+        Race race=null;
         try {
-            String sql="SELECT * FROM contract WHERE ID="+id+";";
+            String sql="SELECT * FROM RACE WHERE ID="+id+";";
             PreparedStatement statement=conne.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
-                contact = ContactFactory.getContactFac(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4));
+                race = RaceFactory.getFacRace(rs.getInt(1),rs.getString(2));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return contact;
+        return race;
     }
 
     @Override
-    public Contact udate(Contact contact) {
-
+    public Race udate(Race race) {
         try {
-            String sql="UPDATE CONTRACT SET CELLPHONE='"+contact.getCellPhne()+"',HOMENUMBER='"+contact.getHomePhone()+"',EMAIL='"+contact.getEmail()+"' WHERE ID="+contact.getId()+";";
+            String sql="UPDATE RACE SET DESRITION ='"+race.getDescriptio()+"' WHERE ID="+race.getId()+";";
             PreparedStatement statement=conne.prepareStatement(sql);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return read(""+contact.getId());
+        return read(""+race.getId());
     }
 
     @Override
-    public Contact delete(String id) {
-        Contact contact=ContactFactory.getContactFac(read(id).getId(),read(id).getCellPhne(),read(id).getHomePhone(),read(id).getEmail());
+    public Race delete(String id) {
+        Race race=RaceFactory.getFacRace(read(id).getId(),read(id).getDescriptio());
         try {
-            String sql="DELETE FROM CONTRACT WHERE ID="+id+";";
+            String sql="DELETE FROM RACE WHERE ID="+id+";";
             PreparedStatement statement=conne.prepareStatement(sql);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return contact;
+        return race;
     }
 
     @Override
     public ArrayList readAll() {
-        Contact contact=null;
         ArrayList<String>myList=new ArrayList<>();
+
+        Race race=null;
         try {
-            String sql="SELECT * FROM CONTRACT ;";
+            String sql="SELECT * FROM RACE ;";
             PreparedStatement statement=conne.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
-                contact = ContactFactory.getContactFac(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getString(4));
-                myList.add(contact.toString());
+                race = RaceFactory.getFacRace(rs.getInt(1),rs.getString(2));
+                myList.add(race.toString());
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -107,13 +116,13 @@ public class ContactRep implements ContacRepInt {
     public int getHighId() {
         int highValeu=0;
         try {
-            String sql="select MAX(ID) from CONTRACT  ;";
+            String sql="select MAX(ID) from RACE  ;";
             PreparedStatement statement=conne.prepareStatement(sql);
             ResultSet rs=statement.executeQuery();
             while(rs.next())
             {
                 highValeu=rs.getInt(1);
-
+                // highValeu=highValeu+1;
                 if(highValeu==0){
                     highValeu=1000;
                 }else highValeu=highValeu+1;

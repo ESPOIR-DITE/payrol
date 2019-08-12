@@ -1,12 +1,14 @@
 package service.Contact;
 
 import domain.contact.Contact;
+import factory.repository.ContactRepoFact;
 import repository.Contact.ContactRep;
 
 import java.util.ArrayList;
 
 public class ContactService implements ContactRepInt{
     private static ContactService contactRep=null;
+    private ContactRep contactP= ContactRepoFact.getContactRep();
 
     private ContactService() {
     }
@@ -19,26 +21,26 @@ public class ContactService implements ContactRepInt{
 
     @Override
     public Contact create(Contact contact) {
-        return null;
+        return contactP.create(contact);
     }
 
     @Override
     public Contact read(String id) {
-        return null;
+        return contactP.read(id);
     }
 
     @Override
     public Contact udate(Contact contact) {
-        return null;
+        return contactP.udate(contact);
     }
 
     @Override
     public Contact delete(String id) {
-        return null;
+        return contactP.delete(id);
     }
 
     @Override
     public ArrayList readAll() {
-        return null;
+        return contactP.readAll();
     }
 }

@@ -1,22 +1,19 @@
 package service.identity;
 
 import domain.identity.Identity;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import repository.identity.IdentityRep;
 import java.util.ArrayList;
 
 public class IdentityService implements IdentityServiceInt {
 
+    private IdentityRep identityRep= IdentityRep.getIdentityRep();
     private static IdentityService ident=null;
 
     private IdentityService() {
 
     }
 
-    public IdentityService getIdent(){
+    public static IdentityService getIdent(){
         if(ident==null){
             ident=new IdentityService();
         }return ident;
@@ -24,27 +21,27 @@ public class IdentityService implements IdentityServiceInt {
     @Override
     public Identity create(Identity identity) {
 
-        return null;
+        return identityRep.create(identity);
     }
 
     @Override
     public Identity read(String id) {
-        return null;
+        return identityRep.read(id);
     }
 
     @Override
     public Identity udate(Identity identity) {
-        return null;
+        return identityRep.udate(identity);
     }
 
     @Override
     public Identity delete(String id) {
-        return null;
+        return identityRep.delete(id);
     }
 
     @Override
     public ArrayList readAll() {
-        return null;
+        return identityRep.readAll();
     }
 
     @Override

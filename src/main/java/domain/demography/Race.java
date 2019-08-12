@@ -4,6 +4,30 @@ public class Race {
     private String descriptio;
     private int id;
 
+    public String getDescriptio() {
+        return descriptio;
+    }
+
+    public void setDescriptio(String descriptio) {
+        this.descriptio = descriptio;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Race{" +
+                "descriptio='" + descriptio + '\'' +
+                ", id=" + id +
+                '}';
+    }
+
     private Race() {
     }
 

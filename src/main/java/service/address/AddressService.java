@@ -1,11 +1,15 @@
 package service.address;
 
 import domain.address.Address;
+import factory.domain.AddressFactory;
+import factory.repository.AddressRepFact;
+import repository.address.AddressRep;
 import service.Iservice;
 
 import java.util.ArrayList;
 
 public class AddressService implements AddressInt {
+    private AddressRep addressRep= AddressRepFact.getAddressRep();
     private static AddressService addressService=null;
 
     private AddressService() {
@@ -19,26 +23,26 @@ public class AddressService implements AddressInt {
 
     @Override
     public Address create(Address address) {
-        return null;
+        return  addressRep.create(address);
     }
 
     @Override
     public Address read(String id) {
-        return null;
+        return addressRep.read(id);
     }
 
     @Override
     public Address udate(Address address) {
-        return null;
+        return addressRep.udate(address);
     }
 
     @Override
     public Address delete(String id) {
-        return null;
+        return addressRep.delete(id);
     }
 
     @Override
     public ArrayList readAll() {
-        return null;
+        return addressRep.readAll();
     }
 }
