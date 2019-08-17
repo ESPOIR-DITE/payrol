@@ -44,8 +44,4 @@ public class IdentityService implements IdentityServiceInt {
         return identityRep.readAll();
     }
 
-    @Override
-    public int getHighId() {
-        return 0;
-    }
 }

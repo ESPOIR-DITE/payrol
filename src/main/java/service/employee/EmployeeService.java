@@ -1,12 +1,15 @@
 package service.employee;
 
 import domain.employe.Employee;
+import factory.repository.EmployeeRepFac;
 import repository.employee.EmployeeRepInt;
+import repository.employee.EmployeeRepo;
 
 import java.util.ArrayList;
 
-public class EmployeeService implements EmployeeRepInt {
+public class EmployeeService implements EmployeeInt {
     private static EmployeeService employee;
+    private EmployeeRepo emp= EmployeeRepFac.getEmployeeRep();
 
     private EmployeeService() {
     }
@@ -17,31 +20,28 @@ public class EmployeeService implements EmployeeRepInt {
     }
     @Override
     public Employee create(Employee employee) {
-        return null;
+        return emp.create(employee);
     }
 
     @Override
     public Employee read(String id) {
-        return null;
+        return emp.read(id);
     }
 
     @Override
     public Employee udate(Employee employee) {
-        return null;
+        return emp.udate(employee);
     }
 
     @Override
     public Employee delete(String id) {
-        return null;
+        return emp.delete(id);
     }
 
     @Override
     public ArrayList readAll() {
-        return null;
+        return emp.readAll();
     }
 
-    @Override
-    public int getHighId() {
-        return 0;
-    }
+
 }

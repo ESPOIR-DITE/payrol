@@ -28,28 +28,19 @@ public class RaceRep implements RaceInt {
         }return rp;
     }
 
-    public void createTable(String tableName){
-        try {
-            String sql="CREATE TABLE "+tableName+" (ID integer(6) ,DESRITION VARCHAR (20) ) ;";
-            PreparedStatement statement=conne.prepareStatement(sql);
-            statement.executeUpdate();
-        } catch (
-                SQLException e) {
-            e.printStackTrace();
-        }
-    }
+
     @Override
     public Race create(Race race) {
-        int codeInt=getHighId();
+        String codeInt=getHighId();
         try {
-            String sql="INSERT INTO RACE (ID,DESRITION  ) VALUES ("+codeInt+",'"+race.getDescriptio()+"');";
+            String sql="INSERT INTO RACE (ID,DESRITION  ) VALUES ('"+codeInt+"','"+race.getDescriptio()+"');";
             PreparedStatement statement=conne.prepareStatement(sql);
             statement.executeUpdate();
         } catch (
                 SQLException e) {
             e.printStackTrace();
         }
-        return read(""+codeInt);
+        return read(codeInt);
     }
 
     @Override
@@ -84,7 +75,7 @@ public class RaceRep implements RaceInt {
     public Race delete(String id) {
         Race race=RaceFactory.getFacRace(read(id).getId(),read(id).getDescriptio());
         try {
-            String sql="DELETE FROM RACE WHERE ID="+id+";";
+            String sql="DELETE FROM RACE WHERE ID='"+id+"';";
             PreparedStatement statement=conne.prepareStatement(sql);
             statement.executeUpdate();
         } catch (SQLException e) {
@@ -113,29 +104,24 @@ public class RaceRep implements RaceInt {
     }
 
     @Override
-    public int getHighId() {
-        int highValeu=0;
+    public String getHighId() {
+        String highValeu=null;
         try {
             String sql="select MAX(ID) from RACE  ;";
             PreparedStatement statement=conne.prepareStatement(sql);
             ResultSet rs=statement.executeQuery();
             while(rs.next())
             {
-                highValeu=rs.getInt(1);
-                // highValeu=highValeu+1;
-                if(highValeu==0){
-                    highValeu=1000;
-                }else highValeu=highValeu+1;
-
-
+                highValeu=rs.getString(1);
+                int x=Integer.parseInt(highValeu)+1;
+                highValeu=""+x;
             }
         }catch (SQLException e)
         {
             e.printStackTrace();
             System.out.println("!!!!SQL EXCEPTION INT ADDRESS CLASS (GETHIGH)");
-        }catch (NumberFormatException x){ highValeu=1000;}
-        catch (NullPointerException y){ highValeu=1000;}
-
+        }catch (NumberFormatException x){ highValeu="1000";}
+        catch (NullPointerException y){ highValeu="1000";}
         return highValeu;
     }
 }

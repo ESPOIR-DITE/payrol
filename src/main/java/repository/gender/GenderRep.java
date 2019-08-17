@@ -30,7 +30,7 @@ public class GenderRep implements GenderRepInt {
     }
     @Override
     public Gender create(Gender gender){
-        int codeInt=getHighId();
+        String codeInt=getHighId();
         try {
         String sql="INSERT INTO GENDER (ID,DESCRIPTION ) VALUES ("+codeInt+",'"+gender.getDescription()+"');";
         PreparedStatement statement=conne.prepareStatement(sql);
@@ -39,7 +39,7 @@ public class GenderRep implements GenderRepInt {
     SQLException e) {
         e.printStackTrace();
     }
-        return read(""+codeInt);
+        return read(codeInt);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class GenderRep implements GenderRepInt {
 
             Gender gender=null;
             try {
-                String sql="SELECT * FROM ADDRESS WHERE ID="+id+";";
+                String sql="SELECT * FROM GENDER WHERE ID="+id+";";
                 PreparedStatement statement=conne.prepareStatement(sql);
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()){
@@ -105,29 +105,27 @@ public class GenderRep implements GenderRepInt {
     }
 
     @Override
-    public int getHighId() {
-        int highValeu=0;
+    public String getHighId() {
+        String highValeu=null;
         try {
             String sql="select MAX(ID) from GENDER  ;";
             PreparedStatement statement=conne.prepareStatement(sql);
             ResultSet rs=statement.executeQuery();
             while(rs.next())
             {
-                highValeu=rs.getInt(1);
-                // highValeu=highValeu+1;
-                if(highValeu==0){
-                    highValeu=1000;
-                }else highValeu=highValeu+1;
-
+                highValeu=rs.getString(1);
+                int x=Integer.parseInt(highValeu)+1;
+                highValeu=""+x;
 
             }
         }catch (SQLException e)
         {
             e.printStackTrace();
             System.out.println("!!!!SQL EXCEPTION INT ADDRESS CLASS (GETHIGH)");
-        }catch (NumberFormatException x){ highValeu=1000;}
-        catch (NullPointerException y){ highValeu=1000;}
+        }catch (NumberFormatException x){ highValeu="1000";}
+        catch (NullPointerException y){ highValeu="1000";}
 
         return highValeu;
     }
+
 }

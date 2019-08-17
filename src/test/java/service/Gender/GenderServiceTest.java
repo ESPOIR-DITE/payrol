@@ -13,7 +13,7 @@ import static org.junit.Assert.*;
 public class GenderServiceTest {
 
     GenderService gs= GenderServicefact.getGender();
-    Gender gender= GenderFactory.getGenderFac(2333,"NONE");
+    Gender gender= GenderFactory.getGenderFac(2333,"OTHER");
     @Before
     public void setUp() throws Exception {
     }
@@ -38,6 +38,7 @@ public class GenderServiceTest {
 
     @Test
     public void delete() {
+        System.out.println(gs.delete("1001").toString());
     }
 
     @Test

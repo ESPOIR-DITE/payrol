@@ -35,7 +35,7 @@ public class RaceRepTest {
 
     @Test
     public void readAll() {
-        rp.createTable("LIZE");
+
     }
 
     @Test

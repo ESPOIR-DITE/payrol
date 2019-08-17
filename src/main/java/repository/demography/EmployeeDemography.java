@@ -62,7 +62,7 @@ public class EmployeeDemography implements DemographyEmployee{
     }
 
     @Override
-    public int getHighId() {
-        return 0;
+    public String getHighId() {
+        return null;
     }
 }

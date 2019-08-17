@@ -33,15 +33,15 @@ public class EmployeeRepo implements EmployeeRepInt {
 
     @Override
     public Employee create(Employee employee) {
-        int codeInt=getHighId();
+        String codeInt=getHighId();
         try {
-            String sql="INSERT INTO EMPLOYEE (ID,NAME ,LASTNAME ) VALUES ("+codeInt+",'"+employee.getName()+"','"+employee.getLastName()+"');";
+            String sql="INSERT INTO EMPLOYEE (ID,NAME ,LASTNAME ) VALUES ('"+codeInt+"','"+employee.getName()+"','"+employee.getLastName()+"');";
             PreparedStatement statement=conne.prepareStatement(sql);
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return read(""+codeInt);
+        return read(codeInt);
     }
 
     @Override
@@ -104,19 +104,15 @@ public class EmployeeRepo implements EmployeeRepInt {
     }
 
     @Override
-    public int getHighId() {
-        int highValeu=0;
+    public String getHighId() {
+        String  highValeu=null;
         try {
             String sql="select MAX(ID) from EMPLOYEE  ;";
             PreparedStatement statement=conne.prepareStatement(sql);
             ResultSet rs=statement.executeQuery();
             while(rs.next())
             {
-                highValeu=rs.getInt(1);
-
-                if(highValeu==0){
-                    highValeu=1000;
-                }else highValeu=highValeu+1;
+                highValeu=rs.getString(1);
 
 
             }
@@ -124,9 +120,9 @@ public class EmployeeRepo implements EmployeeRepInt {
         {
             e.printStackTrace();
             System.out.println("!!!!SQL EXCEPTION INT ADDRESS CLASS (GETHIGH)");
-        }catch (NumberFormatException x){ highValeu=1000;}
-        catch (NullPointerException y){ highValeu=1000;}
+        }catch (NumberFormatException x){ highValeu="1000";}
+        catch (NullPointerException y){ highValeu="1000";}
 
-        return highValeu;
+        return ""+highValeu;
     }
 }

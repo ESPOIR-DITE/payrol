@@ -6,6 +6,16 @@ import repository.race.RaceRep;
 import java.util.ArrayList;
 
 public class RaceService implements RaceServiceInt {
+    private static RaceService raceService;
+
+    private RaceService() {
+    }
+    public static RaceService getRaceService(){
+        if(raceService==null){
+            raceService=new RaceService();
+        }return raceService;
+    }
+
     RaceRep raceRep= RaceRepFac.getRaceRep();
     @Override
     public Race create(Race race) {

@@ -1,9 +1,6 @@
 package service.democraphy;
 
 import domain.demography.Democraphy;
-import domain.demography.Gender;
-import domain.demography.Race;
-import factory.domain.GenderFactory;
 import factory.gender.GenderRepFact;
 import factory.repository.RaceRepFac;
 import repository.demography.EmployeeDemography;

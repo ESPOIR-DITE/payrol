@@ -8,5 +8,5 @@ public interface Irepository<T ,t> {
     T udate(T t);
     T delete(String id);
     ArrayList readAll();
-    int getHighId();
+    String getHighId();
 }
