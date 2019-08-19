@@ -42,12 +42,27 @@ public class GenderRep implements GenderRepInt {
         return read(codeInt);
     }
 
+    public Gender getId(String description){
+        Gender gender=null;
+        try {
+            String sql="SELECT * FROM GENDER WHERE DESCRIPTION='"+description+"';";
+            PreparedStatement statement=conne.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                gender = GenderFactory.getGenderFac(rs.getInt(1),rs.getString(2));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return gender;
+    }
+
     @Override
     public Gender read(String id) {
 
             Gender gender=null;
             try {
-                String sql="SELECT * FROM GENDER WHERE ID="+id+";";
+                String sql="SELECT * FROM GENDER WHERE ID=(SELECT GENDER_ID FROM empoyee_gender WHERE EMP_ID="+id+");";
                 PreparedStatement statement=conne.prepareStatement(sql);
                 ResultSet rs = statement.executeQuery();
                 while (rs.next()){

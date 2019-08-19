@@ -20,6 +20,7 @@ public class GenderRepTest {
 
     @Test
     public void getGenderRep() {
+        System.out.println(genderRep.getId("MALE").toString());
     }
 
     @Test
@@ -29,6 +30,7 @@ public class GenderRepTest {
 
     @Test
     public void read() {
+        System.out.println(genderRep.read("1001").toString());
 
     }
 

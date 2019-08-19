@@ -21,6 +21,9 @@ public class GenderService implements GenderRepInt {
     public Gender create(Gender gender) {
         return gp.create(gender);
     }
+    public Gender getID(String description){
+        return gp.getId(description);
+    }
 
     @Override
     public Gender read(String id) {

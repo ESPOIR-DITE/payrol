@@ -3,6 +3,7 @@ package repository.race;
 import domain.demography.Race;
 import factory.domain.RaceFactory;
 import factory.repository.RaceRepFac;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,6 +15,7 @@ public class RaceRepTest {
 
     @Before
     public void setUp() throws Exception {
+
     }
 
     @Test
@@ -23,14 +25,17 @@ public class RaceRepTest {
 
     @Test
     public void read() {
+        System.out.println(rp.read("1000").toString());
     }
 
     @Test
     public void udate() {
+        Assert.assertNotNull(rp);
     }
 
     @Test
     public void delete() {
+        System.out.println(rp.getId("BLACK").toString());
     }
 
     @Test

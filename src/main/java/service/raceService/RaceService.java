@@ -21,6 +21,9 @@ public class RaceService implements RaceServiceInt {
     public Race create(Race race) {
         return raceRep.create(race);
     }
+    public Race getID(String description){
+        return raceRep.getId(description);
+    }
 
     @Override
     public Race read(String id) {

@@ -30,6 +30,7 @@ public class EmployeeRepoTest {
 
     @Test
     public void udate() {
+
     }
 
     @Test
@@ -42,5 +43,6 @@ public class EmployeeRepoTest {
 
     @Test
     public void getHighId() {
+        System.out.println(empRepo.getHighId());
     }
 }

@@ -113,6 +113,8 @@ public class EmployeeRepo implements EmployeeRepInt {
             while(rs.next())
             {
                 highValeu=rs.getString(1);
+                int i =Integer.parseInt(highValeu)+1;
+                highValeu=""+i;
 
 
             }
@@ -123,6 +125,7 @@ public class EmployeeRepo implements EmployeeRepInt {
         }catch (NumberFormatException x){ highValeu="1000";}
         catch (NullPointerException y){ highValeu="1000";}
 
+        System.out.println(highValeu);
         return ""+highValeu;
     }
 }

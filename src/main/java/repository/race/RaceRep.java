@@ -42,12 +42,26 @@ public class RaceRep implements RaceInt {
         }
         return read(codeInt);
     }
+    public Race getId(String description){
+        Race race=null;
+        try {
+            String sql="SELECT * FROM RACE WHERE DESRITION='"+description+"';";
+            PreparedStatement statement=conne.prepareStatement(sql);
+            ResultSet rs = statement.executeQuery();
+            while (rs.next()){
+                race = RaceFactory.getFacRace(rs.getInt(1),rs.getString(2));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return race;
+    }
 
     @Override
     public Race read(String id) {
         Race race=null;
         try {
-            String sql="SELECT * FROM RACE WHERE ID="+id+";";
+            String sql="SELECT * FROM RACE WHERE ID=(SELECT RACE_ID FROM employee_race WHERE EMP_ID ='"+id+"');";
             PreparedStatement statement=conne.prepareStatement(sql);
             ResultSet rs = statement.executeQuery();
             while (rs.next()){
